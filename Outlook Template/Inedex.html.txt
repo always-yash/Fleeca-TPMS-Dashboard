@@ -1,0 +1,608 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Fleeca TPMS Installation Successful</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap"
+        rel="stylesheet">
+
+    <style type="text/css">
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            background-color: #F3F4F6;
+        }
+
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Enforce absolute soft corners and crisp borders across modern webmail clients */
+        .soft-card-container {
+            border-collapse: separate !important;
+            border: 1px solid #E5E7EB !important;
+            border-radius: 16px !important;
+            overflow: hidden !important;
+        }
+
+        .btn-soft {
+            border-radius: 8px !important;
+        }
+    </style>
+
+</head>
+
+<body style="margin: 0; padding: 0; font-family: 'Montserrat', Arial, sans-serif; background-color: #F3F4F6;">
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F3F4F6; padding: 30px 0;">
+        <tr>
+            <td align="center" valign="top"><br>
+
+                <table class="soft-card-container" border="0" cellpadding="0" cellspacing="0" width="720px"
+                    style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; border-collapse: separate !important; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04);">
+
+                    <tr>
+                        <td align="left" valign="top" bgcolor="#FF6600"
+                            style="background: linear-gradient(115deg, #FF6600 0%, #FF4500 100%); padding: 10px 20px 10px 10px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="left" valign="middle">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <!-- LOGO CELL SHRUNK TO 1% TO REMOVE WIDE GAP -->
+                                                <td width="1%" valign="middle" style="padding-right: 16px;">
+                                                    <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/fleeca_logo.svg" alt="" width="96"
+                                                        style="border: 0; display: block;" />
+                                                </td>
+                                                <!-- TEXT CELL EXTENDS TO FILL BALANCE OF SPACE -->
+                                                <td valign="middle" align="left">
+                                                    <div style="line-height: 1.1; margin-bottom: 2px;">
+                                                        <span
+                                                            style="font-size: 32px; font-weight: 700; color: #FFFFFF; letter-spacing: 0.5px; font-style: italic; display: inline-block; vertical-align: middle;">FLEECA</span><span
+                                                            style="background-color: #FFFFFF; color: #FF6600; font-size: 13px; padding: 4px 8px; border-radius: 4px; font-weight: 900; font-style: normal; display: inline-block; vertical-align: middle; margin-left: 10px; letter-spacing: 0px;">TPMS</span>
+                                                    </div>
+                                                    <div
+                                                        style="font-size: 11px; color: #FFFFFF; opacity: 0.95; font-weight: 500; letter-spacing: 0.4px; line-height: 1.2;">
+                                                        Smart Tyre Monitoring & Fleet Safety</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <!-- RIGHT ALIGNED CORNER ASSET -->
+                                    <td align="right" valign="middle" width="50">
+                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/head-logo.png" alt="Fleeca Logo" 
+                                            width="54" style="border: 0; display: block;" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="left" valign="top" style="padding: 25px 30px 20px 30px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="left" valign="top" width="70%" style="padding: 10px 0px 0px 0px;">
+                                        <h2
+                                            style="font-size: 16px; color: #1F2937; margin: 0 0 12px 0; font-weight: 600; letter-spacing: -0.1px;">
+                                            Dear Sir/Madam,</h2>
+                                        <p
+                                            style="font-size: 14px; color: #4B5563; margin: 0 0 20px 0; line-height: 1.4; font-weight: 500; letter-spacing: -0.1px;">
+                                            Greetings for the day!</p>
+                                        <p
+                                            style="font-size: 14px; color: #4B5563; margin: 0; line-height: 1.4; font-weight: 500; letter-spacing: -0.1px;">
+                                            We are pleased to inform you that the TPMS (Tire Pressure Monitoring System) for your vehicle <strong
+                                                style="color: #FF6600; font-weight: 700; letter-spacing: 0.2px;">{{$fitment_update->vehicle}}</strong>
+                                            has been successfully installed.
+                                        </p>
+                                        
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 18px;">
+                                        <tr>
+                                            <td width="32" valign="middle" style="padding-bottom: 12px;">
+                                                <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/client.png" alt="Client Icon" width="18" />
+                                            </td>
+                                            <td
+                                                style="font-size: 13px; line-height: 1.4; color: #374151; padding-bottom: 12px; font-weight: 500; letter-spacing: -0.25px;">
+                                                    <strong style="color: #1F2937; font-weight: 700;">Client
+                                                        Name:</strong>{{$fitment_update->firmName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="32" valign="middle">
+                                                    <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/office.png" alt="Office Icon" width="18" />
+                                                </td>
+                                                <td style="font-size: 13px; line-height: 1.4; color: #374151; font-weight: 500;"><strong
+                                                        style="color: #1F2937; font-weight: 700;">Office:</strong> {{$fitment_update->locationName}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="center" valign="middle" width="30%">
+                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/installation.png" alt="Installation Successful" width="150"
+                                            style="border: 0; display: block; margin: 1px 0px 10px auto" padding: 0px 0px;/>
+                                        <div
+                                            style="font-size: 19px; color: #34A853; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;">
+                                            Installation <br> Successful!
+                                        </div>
+                                        <div
+                                            style="font-size: 11.5px; color: #6B7280; line-height: 1.5; max-width: 180px; margin: 0 auto; font-weight: 500; letter-spacing: -0.45px;">
+                                            Your vehicle is now connected to the Fleeca Smart TPMS Platform.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" style="padding: 10px 0px 0 0px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td style="border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">&nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" style="padding: 15px 35px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center" valign="middle" width="230"
+                                        style="font-size: 14px; font-weight: 700; color: #FF6600; text-transform: uppercase; letter-spacing: 1px; background-color: #FFFFFF;">
+                                        — INSTALLATION SUMMARY —</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" style="padding: 15px 25px 25px 25px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="table-layout: fixed; border-collapse: separate !important;">
+                                <tr>
+                                    <!-- VEHICLE DETAILS COLUMN (ACTS AS LEFT CARD) -->
+                                    <td align="left" valign="top" width="280"
+                                        style="width: 280px; background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 22px 20px; box-shadow: 0 0 12px rgba(0,0,0,0.06);">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td width="56" valign="middle">
+                                                    <div style="background-color: #FFF0E6; width: 32px; height: 32px; border-radius: 50%; border: 1px solid #FFE0CC; display: inline-block; text-align: center;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/vehicle.png" alt="Vehicle Details" width="18"
+                                                            style="margin-top: 7px;" />
+                                                    </div>
+                                                </td>
+                                                <td
+                                                    style="font-size: 13px; font-weight: 700; color: #1F2937; text-transform: uppercase; letter-spacing: 0.3px;">
+                                                    VEHICLE DETAILS</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" height="18"></td>
+                                            </tr>
+                                        </table>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                            style="font-size: 12px; color: #4B5563; line-height: 2.0; table-layout: fixed;">
+                                            <tr>
+                                                <td width="110" style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">Vehicle
+                                                    Number</td>
+                                                <td width="15" align="center" style="color: #9CA3AF;">:</td>
+                                                <td valign="top"
+                                                    style="color: #FF6600; font-weight: 700; letter-spacing: 0.2px;">
+                                                    {{$fitment_update->vehicle}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="110" valign="top"
+                                                    style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">Client Name</td>
+                                                <td width="15" valign="top" align="center" style="color: #9CA3AF;">:
+                                                </td>
+                                                <td valign="top"
+                                                    style="font-weight: 600; color: #1F2937; line-height: 1.4; padding: 5px 0 0 0; word-break: break-word;">
+                                                    {{$fitment_update->firmName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="110" style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">Office
+                                                </td>
+                                                <td width="15" align="center" style="color: #9CA3AF;">:</td>
+                                                <td valign="top" style="font-weight: 600; color: #1F2937;">{{$fitment_update->locationName}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="110" style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">Installed
+                                                    On</td>
+                                                <td width="15" align="center" style="color: #9CA3AF;">:</td>
+                                                <td valign="top" style="color: #1F2937; font-weight: 600;">{{!empty($fitment_update->updated_at) ? date('d M Y, H:i', strtotime($fitment_update->updated_at)) : date('d M Y, H:i')}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <!-- SPACER CULUMN -->
+                                    <td width="20" style="width: 20px;">&nbsp;</td>
+
+                                    <!-- DEVICE DETAILS COLUMN (ACTS AS RIGHT CARD) -->
+                                    <td align="left" valign="top" width="280"
+                                        style="width: 280px; background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 22px 20px; box-shadow: 0 0 12px rgba(0,0,0,0.06);">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td width="56" valign="middle">
+                                                    <div style="background-color: #FFF0E6; width: 32px; height: 32px; border-radius: 50%; border: 1px solid #FFE0CC; display: inline-block; text-align: center;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/device.png" alt="Device Details" width="18"
+                                                            style="margin-top: 7px;" />
+                                                    </div>
+                                                </td>
+                                                <td
+                                                    style="font-size: 13px; font-weight: 700; color: #1F2937; text-transform: uppercase; letter-spacing: 0.3px;">
+                                                    DEVICE DETAILS</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" height="18"></td>
+                                            </tr>
+                                        </table>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                            style="font-size: 12px; color: #4B5563; line-height: 2.0; table-layout: fixed;">
+                                            <tr>
+                                                <td width="110" valign="top"
+                                                    style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">TPMS Configuration
+                                                </td>
+                                                <td width="15" valign="top" align="center" style="color: #9CA3AF;">:
+                                                </td>
+                                                <td valign="top" style="font-weight: 600; color: #1F2937;">{{$fitment_update->vehicle_configuration}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="110" style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">TPMS No.
+                                                </td>
+                                                <td width="15" align="center" style="color: #9CA3AF;">:</td>
+                                                <td valign="top"
+                                                    style="font-weight: 600; color: #1F2937; letter-spacing: 0.2px;">
+                                                    {{$fitment_update->code}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                                <td align="center" valign="top"
+                                                    style=" border-bottom: 1px solid #E5E7EB; line-height: 0; height: 1px;">
+                                                    &nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="110" valign="top"
+                                                    style="font-weight: 600; letter-spacing: -0.4px; white-space: nowrap;">SIM No.</td>
+                                                <td width="15" valign="top" align="center" style="color: #9CA3AF;">:
+                                                </td>
+                                                <td valign="top"
+                                                    style="color: #1F2937; font-weight: 600; word-break: break-all; line-height: 1.4; padding: 5px 0 0 0;">
+                                                    {{$fitment_update->simcode}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" style="padding: 5px 25px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="background-color: #fcf5f1; border-radius: 8px; border-collapse: separate !important; padding: 20px 20px;">
+                                <tr>
+                                    <td align="center"
+                                        style="font-size: 12px; font-weight: 600; color: #FF6600; text-transform: uppercase; letter-spacing: 1px;">
+                                        — <strong style="color: #000000; font-weight: 600; letter-spacing: 0.2px;">&nbsp;&nbsp; GET STARTED &nbsp;&nbsp;</strong> — </td>
+                                </tr>
+                                <tr>
+                                    <td align="center"
+                                        style="font-size: 13.5px; color: #4B5563; padding: 8px 0 20px 0; font-weight: 500;">
+                                        Manage your fleet, monitor tyre health and get instant alerts.</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td class="btn-soft" align="center" bgcolor="#FF6600"
+                                                    style="border-radius: 8px;">
+                                                    <a href="https://play.google.com/store/apps/details?id=com.fleeca.fleecacustomer&hl=en"
+                                                        target="_blank"
+                                                        style="font-size: 15px; font-weight: 700; color: #FFFFFF; text-decoration: none; padding: 13px 28px; display: inline-block; letter-spacing: -0.1px;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/blue-call.png" alt="callicon" width="16"
+                                                            style="margin-right: 8px; vertical-align: -2px;" /> Download
+                                                        Fleeca App Now
+                                                    </a>
+                                                </td>
+                                                <td width="20">&nbsp;</td>
+                                                <td class="btn-soft" align="center" bgcolor="#FFFFFF"
+                                                    style="border-radius: 8px;">
+                                                    <a href="https://app.fleeca.in" target="_blank"
+                                                        style="font-size: 15px; font-weight: 700; color: #FF6600; text-decoration: none; padding: 12px 28px; display: inline-block; letter-spacing: -0.1px; border: 1.5px solid #FF6600; border-radius: 8px;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/office.png" alt="" width="16"
+                                                            style="margin-right: 8px; vertical-align: -2px;" /> Open Web
+                                                        Dashboard
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" style="padding: 30px 25px 20px 25px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="border: 1px solid #E5E7EB; border-radius: 8px; border-collapse: separate; overflow: hidden;">
+                                <tr>
+                                    <td align="center" valign="top" width="25%" style="padding: 20px 0;">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                            style="border-right: 1px solid #E5E7EB;">
+                                            <tr>
+                                                <td align="center">
+                                                    <div
+                                                        style= "margin-bottom: 12px; display: inline-block;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/tyre-pressure.png" alt="Tyre Pressure"
+                                                            width="28" style="padding: 9px 9px 9px 9px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #FFE0CC; background-color: #FFF0E6; " />
+                                                    </div>
+                                                    <div
+                                                        style="font-size: 11px; font-weight: 700; color: #1F2937; line-height: 1.4; letter-spacing: -0.1px;">
+                                                        Live Tyre Pressure<br />Monitoring</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="center" valign="top" width="25%" style="padding: 20px 0;">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                            style="border-right: 1px solid #E5E7EB;">
+                                            <tr>
+                                                <td align="center">
+                                                    <div
+                                                        style= "margin-bottom: 12px; display: inline-block;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/temperature.png" alt="Temperature"
+                                                            width="28" style="padding: 9px 9px 9px 9px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #FFE0CC; background-color: #FFF0E6; " />
+                                                    </div>
+                                                    <div
+                                                        style="font-size: 11px; font-weight: 700; color: #1F2937; line-height: 1.4; letter-spacing: -0.1px;">
+                                                        Temperature<br />Monitoring</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="center" valign="top" width="25%" style="padding: 20px 0;">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0"
+                                            style="border-right: 1px solid #E5E7EB;">
+                                            <tr>
+                                                <td align="center">
+                                                    <div
+                                                        style= "margin-bottom: 12px; display: inline-block;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/alerts.png" alt="Alerts"
+                                                            width="28" style="padding: 9px 9px 9px 9px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #FFE0CC; background-color: #FFF0E6; " />
+                                                    </div>
+                                                    <div
+                                                        style="font-size: 11px; font-weight: 700; color: #1F2937; line-height: 1.4; letter-spacing: -0.1px;">
+                                                        Instant Alerts &<br />Notifications</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="center" valign="top" width="25%" style="padding: 20px 0;">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="center">
+                                                    <div
+                                                        style= "margin-bottom: 12px; display: inline-block;">
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/reports.png" alt="Reports"
+                                                            width="28" style="padding: 9px 9px 9px 9px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #FFE0CC; background-color: #FFF0E6; " />
+                                                    </div>
+                                                    <div
+                                                        style="font-size: 11px; font-weight: 700; color: #1F2937; line-height: 1.4; letter-spacing: -0.1px;">
+                                                        Advanced Reports &<br />Analytics</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" style="padding: 15px 25px 40px 25px;">
+                            <table class="soft-card-container" border="0" cellpadding="0" cellspacing="0" width="100%" border-radius: 8px;
+                                style="background-color: #F4F5F7; border: 1px solid #dddfe4; border-radius: 8px; border-collapse: inherit !important; padding: 20px 20px;">
+                                <tr>
+                                    <td align="left" valign="middle" width="44%">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="42" valign="middle">
+                                                    <div>
+                                                        <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/help.png" alt="Help" width="30"
+                                                            style="margin-bottom: 4px;" />
+                                                    </div>
+                                                </td>
+                                                <td valign="middle">
+                                                    <div
+                                                        style="font-size: 12px; font-weight: 700; color: #1F2937; letter-spacing: 0.3px;">
+                                                        NEED HELP?</div>
+                                                    <div
+                                                        style="font-size: 11px; color: #373737; margin-top: 2px; font-weight: 500;">
+                                                        Our support team is here to assist you.</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td align="left" valign="middle" width="28%"
+                                        style="border-left: 1px solid #cbcdd1; padding-left: 15px;">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="24" valign="middle">
+                                                    <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/call.png" alt="Call" width="30" />
+                                                </td>
+                                                <td
+                                                    style="font-size: 12.5px; font-weight: 700; color: #374151; line-height: 1.4; letter-spacing: 0.2px;">
+                                                   &nbsp +91 7969025566 <br> &nbsp +91 8306009363
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td align="left" valign="middle" width="28%"
+                                        style="border-left: 1px solid #cbcdd1; padding-left: 15px;">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="24" valign="middle">
+                                                    <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/mail.png" alt="Mail" width="30" />
+                                                </td>
+                                                <td style="font-size: 12.5px; font-weight: 700; color: #374151;">
+                                                    <a href="mailto:support@fleeca.in"
+                                                        style="color: #374151; text-decoration: none;">&nbspsupport@fleeca.in</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="top" bgcolor="#F3F4F6"
+                            style="padding: 26px 35px; border-top: 1px solid #E5E7EB;">
+                            <p
+                                style="font-size: 11px; color: #4B5563; margin: 0 0 18px 0; font-weight: 600; line-height: 1.5; text-align: center;">
+                                Delhi &nbsp;<span style="color:#FF6600;">|</span>&nbsp; Haryana &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; Punjab &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; Maharashtra &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; Rajasthan &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; Gujarat &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; M.P. &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; U.P. &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; Chattisgarh &nbsp;<span
+                                    style="color:#FF6600;">|</span>&nbsp; West Bengal
+                            </p>
+
+                            <table border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 18px;">
+                                <tr>
+                                    <td valign="middle"
+                                        style="font-size: 12.5px; font-weight: 700; color: #1F2937; padding-right: 25px; letter-spacing: 0.2px;">
+                                        <a href="https://www.fleeca.in" target="_blank"
+                                            style="color: #1F2937; text-decoration: none; display: inline-flex; align-items: center;">
+                                            <img src="https://api-app.fleeca.in/images/email/tpms-installation-success/web.png" alt="Web" width="16" height="16"
+                                                style="display: block; margin-right: 6px;" />
+                                            www.fleeca.in
+                                        </a>
+                                    </td>
+                                    <!-- SOCIAL MEDIA ICONS REPLACING PLACEHOLDER -->
+                                    <td valign="middle" style="padding-left: 20px;">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding: 3px 3px; margin: 2px 12px; width: 12px; border-radius:25px;border:1px solid #000;display:inline-flex;align-items:center;justify-content:center;"">
+                                                    <a href="https://www.facebook.com/fleecaindiaprivatelimited"
+                                                        target="_blank"><img src="https://api-app.fleeca.in/images/email/tpms-installation-success/facebook.png" width="12"
+                                                            alt="Facebook" /></a>
+                                                </td>
+                                                <td style="padding: 3px 3px; margin: 2px 12px; width: 12px; border-radius:25px;border:1px solid #000;display:inline-flex;align-items:center;justify-content:center;"">
+                                                    <a href="https://www.instagram.com/fleecaindia/"
+                                                        target="_blank"><img src="https://api-app.fleeca.in/images/email/tpms-installation-success/instagram.png" width="12"
+                                                            alt="Instagram" /></a>
+                                                </td>
+                                                <td style="padding: 3px 3px; margin: 2px 12px; width: 12px; border-radius:25px;border:1px solid #000;display:inline-flex;align-items:center;justify-content:center;"">
+                                                    <a href="https://www.linkedin.com/company/fleeca-india-pvt-ltd"
+                                                        target="_blank"><img src="https://api-app.fleeca.in/images/email/tpms-installation-success/linkedin.png" width="12"
+                                                            alt="LinkedIn" /></a>
+                                                </td>
+                                                <td style="padding: 3px 3px; margin: 2px 12px; width: 12px; border-radius:25px;border:1px solid #000;display:inline-flex;align-items:center;justify-content:center;"">
+                                                    <a href="https://www.youtube.com/@fleecaindia5552"
+                                                        target="_blank"><img src="https://api-app.fleeca.in/images/email/tpms-installation-success/youtube.png" width="12"
+                                                            alt="YouTube" /></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p
+                                style="font-size: 11px; color: #9CA3AF; margin: 0 0 6px 0; text-align: center; font-weight: 500;">
+                                please do not reply to this mail as this is an automated mail service.
+                            </p>
+                            <p
+                                style="font-size: 11px; color: #9CA3AF; margin: 0; text-align: center; font-weight: 700; letter-spacing: 0.1px;">
+                                &copy; 2026 Fleeca India Pvt. Ltd. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table><br>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
