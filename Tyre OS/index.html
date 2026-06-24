@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TyreOS Interactive Symmetrical Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F7FAFC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 100vh;
+            max-width: 96%;
+            padding: 40px 0px;
+            overflow-x: auto;
+        }
+
+        /* EXPANDED 3-COLUMN CONTROL DASHBOARD ASSEMBLY */
+        .dashboard-wrapper {
+            display: grid;
+            grid-template-columns: 450px 960px 450px;
+            gap: 70px;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 1920px;
+            width: 100%;
+        }
+
+        @media (max-width: 1800px) {
+            .dashboard-wrapper {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            .side-cards-panel {
+                width: 100%;
+                max-width: 600px;
+            }
+        }
+
+        /* MASTER CENTRAL WHEEL CANVAS CONTAINER */
+        .tyreos-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+        }
+
+        /* VERTICAL CARD STACKS (LEFT & RIGHT FLANKS) */
+        .side-cards-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* COMPACT PRESENTATION FLANK CARDS */
+        .dynamic_info_card {
+            background: #FFFFFF;
+            border-radius: 10px;
+            /* Slightly sharper corner for a clean profile */
+            padding: 12px 14px;
+            /* Compressed vertical and horizontal padding */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            border-left: 4px solid #E2E8F0;
+            opacity: 0.25;
+            transform: scale(0.96) translateY(5px);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Active Card Presentation State */
+        .dynamic_info_card.is-active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            border-left-color: #FF7B0A;
+            box-shadow: 0 8px 16px -4px rgba(244, 90, 0, 0.12);
+        }
+
+        .dynamic_info_card h4 {
+            font-size: 14px;
+            /* Scaled down heading size */
+            color: #1A202C;
+            font-weight: 700;
+            margin-bottom: 4px;
+            /* Reduced spacing margin */
+        }
+
+        .dynamic_info_card p {
+            font-size: 11px;
+            /* Tightened prose scale to protect vertical viewport height */
+            line-height: 1.4;
+            color: #4A5568;
+        }
+
+        .info-section h5 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.75px;
+            color: #FF6A00;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .info-section p {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #4A5568;
+        }
+
+        /* INLINE MICRO METRIC CHARTS */
+        .micro-charts-group {
+            background: #F8FAFC;
+            border-radius: 8px;
+            padding: 10px 14px;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .chart-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #4A5568;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 6px;
+            background: #E2E8F0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF7B0A, #F45A00);
+            width: 0%;
+            border-radius: 3px;
+            transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animate charts when card becomes active */
+        .dynamic_info_card.is-active .bar-fill {
+            width: var(--target-width);
+        }
+
+        /* INTERACTIVE SECTOR STATE MANAGEMENT */
+        .wheel-sector-btn {
+            cursor: pointer;
+        }
+
+        .wheel-sector-btn .slice-bg {
+            fill: #F4F6F8;
+            filter: url(#cardShadow);
+            transition: fill 0.35s ease, filter 0.35s ease;
+        }
+
+        /* Programmatic CSS Hooks for Activated States */
+        .wheel-sector-btn.is-active .slice-bg {
+            fill: url(#activeGrad) !important;
+            filter: url(#activeShadow) !important;
+        }
+
+        .wheel-sector-btn .slice-glow-line {
+            stroke: rgba(255, 255, 255, 0.5);
+            transition: stroke 0.35s ease;
+        }
+
+        .wheel-sector-btn.is-active .slice-glow-line {
+            stroke: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Central Hub Trigger Configuration */
+        .central-core-hub {
+            cursor: pointer;
+            pointer-events: auto !important;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .central-core-hub:hover {
+            transform: translate(-50%, -50%) scale(1.04) !important;
+        }
+
+        /* Overlay text nodes turn to pointer fields */
+        .sector-content-block {
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.25s ease;
+        }
+
+        .sector-content-block:hover {
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        /* Dynamic Contrast Overrides when Active */
+        .sector-content-block.is-active h3 {
+            color: #FFFFFF !important;
+        }
+
+        .sector-content-block.is-active .card-divider {
+            background: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        /* Status Node Indicator Elements */
+        .orbit-node {
+            transition: fill 0.3s ease, stroke 0.3s ease;
+        }
+
+        .orbit-node.is-active {
+            fill: #FF7B0A !important;
+            stroke: #FFFFFF !important;
+        }
+
+        /* ORIGINAL ARCHITECTURE PRESERVED */
+        .sector-super-wrapper {
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(-50%, -50%);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .card-divider {
+            width: 44px;
+            height: 3px;
+            border-radius: 1.5px;
+            margin: 8px 0 12px 0;
+            transition: background 0.3s ease;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        .central-core-hub * {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .central-core-hub h1 {
+            font-weight: 900 !important;
+            letter-spacing: -1.5px !important;
+            line-height: 1 !important;
+            font-size: 42px !important;
+        }
+
+        .central-core-hub>span:first-of-type {
+            font-weight: 800 !important;
+            letter-spacing: 2.5px !important;
+            color: #FF6A00 !important;
+            text-transform: uppercase !important;
+        }
+
+        .central-core-hub>p {
+            font-weight: 600 !important;
+            color: #718096 !important;
+            line-height: 1.4 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-wrapper">
+
+        <div class="side-cards-panel">
+            <div class="dynamic_info_card" id="card-s1">
+                <h4>Banker Node</h4>
+                <div class="info-section">
+                    <h5>Target Integration Entities</h5>
+                    <p>Commercial Investment Banks, Automotive Lenders, Asset-Backed Capital Funds, and Fleet Lease
+                        Corporations.</p>
+                </div>
+                <div class="info-section">
+                    <h5>Strategic Business Objectives</h5>
+                    <p>Establish real-time depreciation tracking of mobile enterprise assets, optimize underwriting risk
+                        spreads, and reduce capital write-offs.</p>
+                </div>
+                <div class="micro-charts-group">
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Portfolio Asset Coverage</span><span>88%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 88%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Credit Default Risk Mitigation</span><span>74%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 74%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dynamic_info_card" id="card-s6">
+                <h4>Insurer Node</h4>
+                <div class="info-section">
+                    <h5>Target Integration Entities</h5>
+                    <p>Actuarial Risk Evaluation Tech, Corporate Fleet Insurers, Underwriting Syndicates, and Claims
+                        Processors.</p>
+                </div>
+                <div class="info-section">
+                    <h5>Strategic Business Objectives</h5>
+                    <p>Formulate dynamic risk profiling metrics based on driver telemetry, automate claim assessment
+                        fraud filtering, and lower aggregate payout rates.</p>
+                </div>
+                <div class="micro-charts-group">
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Claims Avoidance Index</span><span>78%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 78%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Actuarial Accuracy Shift</span><span>89%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 89%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dynamic_info_card" id="card-s5">
+                <h4>Service Partner</h4>
+                <div class="info-section">
+                    <h5>Target Integration Entities</h5>
+                    <p>National Service Centers, Independent Workshops, Precision Maintenance Networks, and Tooling
+                        Distributors.</p>
+                </div>
+                <div class="info-section">
+                    <h5>Strategic Business Objectives</h5>
+                    <p>Trigger proactive mechanical work orders via telemetry flags, eliminate schedule fragmentation,
+                        and raise localized asset lifecycle customer retention.</p>
+                </div>
+                <div class="micro-charts-group">
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Turnaround Velocity</span><span>84%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 84%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>SLA Automated Compliance</span><span>96%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 96%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tyreos-container">
+
+            <div class="layer-base layer-svg"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+                <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"
+                    style="width: 100%; height: 100%; display: block; overflow: visible;">
+                    <defs>
+                        <linearGradient id="activeGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#FF7B0A" />
+                            <stop offset="100%" stop-color="#F45A00" />
+                        </linearGradient>
+                        <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="108%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.04" />
+                        </filter>
+                        <filter id="activeShadow" x="-6%" y="-6%" width="112%" height="112%">
+                            <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#F45A00" flood-opacity="0.22" />
+                        </filter>
+                        <filter id="badgeShadow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.1" />
+                        </filter>
+                        <radialGradient id="activeGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FF6A00" stop-opacity="0.1" />
+                            <stop offset="100%" stop-color="#FF6A00" stop-opacity="0" />
+                        </radialGradient>
+                        <radialGradient id="ambientGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FF5500" stop-opacity="0" />
+                            <stop offset="30%" stop-color="#FF6A00" stop-opacity="0.15" />
+                            <stop offset="60%" stop-color="#FF7B0A" stop-opacity="0.06" />
+                            <stop offset="100%" stop-color="#FF7B0A" stop-opacity="0" />
+                        </radialGradient>
+                        <filter id="premiumCoreShadow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="28" flood-color="#000000" flood-opacity="0.10" />
+                        </filter>
+                    </defs>
+
+                    <g transform="translate(500,500)">
+                        <circle cx="0" cy="0" r="480" fill="none" stroke="#EDF2F7" stroke-width="1.5" />
+                        <circle cx="0" cy="0" r="200" fill="none" stroke="#EDF2F7" stroke-width="1" />
+                        <circle cx="0" cy="0" r="750" fill="url(#activeGlow)" />
+
+                        <g class="wheel-sector-btn" id="btn-s1" data-sector="s1">
+                            <path class="slice-bg" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"
+                                d="M -411.4,-247.2 A 480,480 0 0,1 -8.2,-480 L -3.3,-190 A 190,190 0 0,0 -162.8,-97.9 Z" />
+                            <path class="slice-glow-line" fill="none" stroke-width="0.5" stroke-linejoin="round"
+                                d="M -411.4,-247.2 A 480,480 0 0,1 -8.2,-480 L -3.3,-190 A 190,190 0 0,0 -162.8,-97.9 Z" />
+                        </g>
+
+                        <g class="wheel-sector-btn" id="btn-s2" data-sector="s2">
+                            <path class="slice-bg" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"
+                                d="M 8.2,-480 A 480,480 0 0,1 411.4,-247.2 L 162.8,-97.9 A 190,190 0 0,0 3.3,-190 Z" />
+                            <path class="slice-glow-line" fill="none" stroke-width="1" stroke-linejoin="round"
+                                d="M 8.2,-480 A 480,480 0 0,1 411.4,-247.2 L 162.8,-97.9 A 190,190 0 0,0 3.3,-190 Z" />
+                        </g>
+
+                        <g class="wheel-sector-btn" id="btn-s3" data-sector="s3">
+                            <path class="slice-bg" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"
+                                d="M 420,-232.8 A 480,480 0 0,1 420,232.8 L 166.2,92.1 A 190,190 0 0,0 166.2,-92.1 Z" />
+                            <path class="slice-glow-line" fill="none" stroke-width="0.8" stroke-linejoin="round"
+                                d="M 420,-232.8 A 480,480 0 0,1 420,232.8 L 166.2,92.1 A 190,190 0 0,0 166.2,-92.1 Z" />
+                        </g>
+
+                        <g class="wheel-sector-btn" id="btn-s4" data-sector="s4">
+                            <path class="slice-bg" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"
+                                d="M 411.4,247.2 A 480,480 0 0,1 8.2,480 L 3.3,190 A 190,190 0 0,0 162.8,97.9 Z" />
+                            <path class="slice-glow-line" fill="none" stroke-width="0.8" stroke-linejoin="round"
+                                d="M 411.4,247.2 A 480,480 0 0,1 8.2,480 L 3.3,190 A 190,190 0 0,0 162.8,97.9 Z" />
+                        </g>
+
+                        <g class="wheel-sector-btn" id="btn-s5" data-sector="s5">
+                            <path class="slice-bg" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"
+                                d="M -8.2,480 A 480,480 0 0,1 -411.4,247.2 L -162.8,97.9 A 190,190 0 0,0 -3.3,190 Z" />
+                            <path class="slice-glow-line" fill="none" stroke-width="0.8" stroke-linejoin="round"
+                                d="M -8.2,480 A 480,480 0 0,1 -411.4,247.2 L -162.8,97.9 A 190,190 0 0,0 -3.3,190 Z" />
+                        </g>
+
+                        <g class="wheel-sector-btn" id="btn-s6" data-sector="s6">
+                            <path class="slice-bg" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round"
+                                d="M -420,232.8 A 480,480 0 0,1 -420,-232.8 L -166.2,-92.1 A 190,190 0 0,0 -166.2,92.1 Z" />
+                            <path class="slice-glow-line" fill="none" stroke-width="0.8" stroke-linejoin="round"
+                                d="M -420,232.8 A 480,480 0 0,1 -420,-232.8 L -166.2,-92.1 A 190,190 0 0,0 -166.2,92.1 Z" />
+                        </g>
+                    </g>
+
+                    <circle id="node-s2" class="orbit-node" cx="500" cy="310" r="7" fill="#FFF" stroke="#FF6A00"
+                        stroke-width="3" filter="url(#badgeShadow)" />
+                    <circle id="node-s3" class="orbit-node" cx="664.5" cy="405" r="7" fill="#FFF" stroke="#FF6A00"
+                        stroke-width="3" filter="url(#badgeShadow)" />
+                    <circle id="node-s4" class="orbit-node" cx="664.5" cy="595" r="7" fill="#FFF" stroke="#FF6A00"
+                        stroke-width="3" filter="url(#badgeShadow)" />
+                    <circle id="node-s5" class="orbit-node" cx="500" cy="690" r="7" fill="#FFF" stroke="#FF6A00"
+                        stroke-width="3" filter="url(#badgeShadow)" />
+                    <circle id="node-s6" class="orbit-node" cx="335.5" cy="595" r="7" fill="#FFF" stroke="#FF6A00"
+                        stroke-width="3" filter="url(#badgeShadow)" />
+                    <circle id="node-s1" class="orbit-node" cx="335.5" cy="405" r="7" fill="#FFF" stroke="#FF6A00"
+                        stroke-width="3" filter="url(#badgeShadow)" />
+
+                    <circle cx="500" cy="500" r="175" fill="#FFF" filter="url(#cardShadow)" />
+                    <circle cx="500" cy="500" r="172" fill="#FFF" filter="url(#cardShadow)" />
+                    <circle cx="500" cy="500" r="500" fill="url(#ambientGlow)" />
+                    <circle cx="500" cy="500" r="165" fill="#FFFFFF" filter="url(#premiumCoreShadow)" />
+                    <circle cx="500" cy="500" r="160" fill="#FFF" filter="url(#cardShadow)" />
+                    <circle cx="500" cy="500" r="158" fill="#EDEDED" />
+                </svg>
+            </div>
+
+            <div class="content-overlay-layer"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; box-sizing: border-box;">
+
+                <div class="super-sector-layout-wrapper"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <div class="sector-content-block s2" id="block-s2" data-sector="s2"
+                        style="position: absolute; right: 13.5%; top: 19.5%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                        <div
+                            style="position: relative; justify-content: center; align-items: center; margin-bottom: 6px;">
+                            <img src="images/fleet.png" alt="Fleet / Govt."
+                                style="width: 200px; object-fit: contain;" />
+                            <div
+                                style="position: absolute; bottom: 20px; right: -60px; width: 50px; border-radius: 50%; background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                                <img src="images/fleet-icon.png"
+                                    style="width: 60px; border-radius: 50%; object-fit: contain;" />
+                            </div>
+                        </div>
+                        <h3
+                            style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 18px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px; transition: color 0.3s ease;">
+                            Fleet / Govt.</h3>
+                        <div class="card-divider" style="background: #EDF2F7;"></div>
+                    </div>
+                </div>
+
+                <div class="super-sector-layout-wrapper"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <div class="sector-content-block s3" id="block-s3" data-sector="s3"
+                        style="position: absolute; left: 86.0%; top: 51.0%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                        <div
+                            style="position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                            <img src="images/tyre.png" alt="Tyre Manufacturers"
+                                style="width: 240px; object-fit: contain;" />
+                            <div
+                                style="position: absolute; bottom: 20px; right: 200px; width: 72px; border-radius: 50%; background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                <img src="images/tyre-icon.png"
+                                    style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                            </div>
+                        </div>
+                        <h3
+                            style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px; transition: color 0.3s ease;">
+                            Tyre Manufacturers</h3>
+                        <div class="card-divider" style="background: #EDF2F7;"></div>
+                    </div>
+                </div>
+
+                <div class="super-sector-layout-wrapper"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <div class="sector-content-block s4" id="block-s4" data-sector="s4"
+                        style="position: absolute; left: 62.5%; top: 80%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                        <div
+                            style="position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                            <img src="images/oem.png" alt="Vehicle OEM" style="width:200px; object-fit: contain;" />
+                            <div
+                                style="position: absolute; bottom: 20px; right: -100px; width: 72px; border-radius: 50%; background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                <img src="images/oem-icon.png"
+                                    style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                            </div>
+                        </div>
+                        <h3
+                            style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px; transition: color 0.3s ease;">
+                            Vehicle OEM</h3>
+                        <div class="card-divider" style="background: #EDF2F7;"></div>
+                    </div>
+                </div>
+
+                <div class="super-sector-layout-wrapper"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <div class="sector-content-block s5" id="block-s5" data-sector="s5"
+                        style="position: absolute; left: 36.5%; top: 80%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                        <div
+                            style="position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                            <img src="images/service.png" alt="Service Partner"
+                                style="width: 160px; object-fit: contain;" />
+                            <div
+                                style="position: absolute; bottom: 20px; right: 195px; width: 72px; border-radius: 50%; background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                <img src="images/service-icon.png"
+                                    style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                            </div>
+                        </div>
+                        <h3
+                            style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px; transition: color 0.3s ease;">
+                            Service Partner</h3>
+                        <div class="card-divider" style="background: #EDF2F7;"></div>
+                    </div>
+                </div>
+
+                <div class="super-sector-layout-wrapper"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <div class="sector-content-block s6" id="block-s6" data-sector="s6"
+                        style="position: absolute; left: 12.0%; top: 51.0%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                        <div
+                            style="position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                            <img src="images/insurance.png" alt="Insurer" style="width: 180px; object-fit: contain;" />
+                            <div
+                                style="position: absolute; bottom: 20px; right: -60px; width: 72px; border-radius: 50%; background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                                <img src="images/insurance-icon.png"
+                                    style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                            </div>
+                        </div>
+                        <h3
+                            style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px; transition: color 0.3s ease;">
+                            Insurer</h3>
+                        <div class="card-divider" style="background: #EDF2F7;"></div>
+                    </div>
+                </div>
+
+                <div class="super-sector-layout-wrapper"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                    <div class="sector-content-block s1" id="block-s1" data-sector="s1"
+                        style="position: absolute; left: 37.5%; top: 19.0%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                        <div
+                            style="position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                            <img src="images/bank.png" alt="Banker" style="width: 200px; object-fit: contain;" />
+                            <div
+                                style="position: absolute; bottom: 25px; left: -85px; width: 72px; border-radius: 50%; background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                                <img src="images/bank-icon.png"
+                                    style="width: 72px; border-radius:50%; object-fit: contain;" />
+                            </div>
+                        </div>
+                        <h3
+                            style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 18px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px; transition: color 0.3s ease;">
+                            Banker</h3>
+                        <div class="card-divider" style="background: #EDF2F7;"></div>
+                    </div>
+                </div>
+
+                <div class="central-core-hub" id="center-hub-btn"
+                    style="position: absolute; left: 50.0%; top: 48.0%; transform: translate(-50%, -50%); width: 260px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+                    <img src="images/tyre-os-ai.png" alt="AI Engine"
+                        style="width: 150px; object-fit: contain; margin-bottom: 4px;" />
+                    <span
+                        style="font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10.5px; font-weight: 800; color: #FF6A00; letter-spacing: 2px; line-height: 1.5;">AI
+                        DRIVEN</span>
+                    <h1
+                        style="margin: 4px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 60px; font-weight: 800; color: #1A202C; letter-spacing: -0.25px; line-height: 1.5;">
+                        Tyre<strong style="color: #FF6A00; font-weight: 700; font-size: 40px;"> OS</strong>
+                    </h1>
+                    <p
+                        style="margin: 2px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; font-weight: 600; line-height: 1.5; color: #718096; max-width: 170px;">
+                        Intelligent Tyre Management for Smarter Mobility
+                    </p>
+                    <div style="display: flex; gap: 5px; margin-top: 10px;">
+                        <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                        <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                        <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                        <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                        <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="side-cards-panel">
+            <div class="dynamic_info_card" id="card-s2">
+                <h4>Fleet / Govt.</h4>
+                <div class="info-section">
+                    <h5>Target Integration Entities</h5>
+                    <p>Intercity Transport Fleets, Municipal Infrastructure Networks, Logistics Aggregators, and
+                        Cold-Chain Fleets.</p>
+                </div>
+                <div class="info-section">
+                    <h5>Strategic Business Objectives</h5>
+                    <p>Prevent road downtime instances dynamically, track eco-metric load balancing, and secure
+                        predictive tire compound replacement schedules.</p>
+                </div>
+                <div class="micro-charts-group">
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Fleet Active Uptime</span><span>95%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Carbon Reduction Ratio</span><span>82%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 82%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dynamic_info_card" id="card-s3">
+                <h4>Tyre Manufacturers</h4>
+                <div class="info-section">
+                    <h5>Target Integration Entities</h5>
+                    <p>Tier-1 Tire Global Brands, Rubber Engineering Facilities, and Smart Sensing Telematics Units.</p>
+                </div>
+                <div class="info-section">
+                    <h5>Strategic Business Objectives</h5>
+                    <p>Capture real-world tire wear degradation loops, accelerate simulation accuracy matrices, and
+                        implement scalable Tire-as-a-Service workflows.</p>
+                </div>
+                <div class="micro-charts-group">
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>R&D Telemetry Feed Velocity</span><span>99%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 99%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Compound Precision Match</span><span>91%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 91%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dynamic_info_card" id="card-s4">
+                <h4>Vehicle OEM</h4>
+                <div class="info-section">
+                    <h5>Target Integration Entities</h5>
+                    <p>Electric Vehicle Architects, Commercial Chassis Plants, and Autonomous Transportation Builders.
+                    </p>
+                </div>
+                <div class="info-section">
+                    <h5>Strategic Business Objectives</h5>
+                    <p>Ship premium vehicles with integrated chassis telemetry, streamline end-of-line verification, and
+                        enhance structural dependability profiles.</p>
+                </div>
+                <div class="micro-charts-group">
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>CAN-Bus Telemetry Depth</span><span>92%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 92%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-labels"><span>Factory Delivery Index</span><span>86%</span></div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="--target-width: 86%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sectorBgs = document.querySelectorAll(".wheel-sector-btn");
+            const overlayBlocks = document.querySelectorAll(".sector-content-block");
+            const centerHubBtn = document.getElementById("center-hub-btn");
+
+            // Unified State Processor Engine
+            function executeToggle(sectorId, forceState = null) {
+                const targetWedge = document.getElementById(`btn-${sectorId}`);
+                const targetCard = document.getElementById(`card-${sectorId}`);
+                const targetNode = document.getElementById(`node-${sectorId}`);
+                const targetOverlay = document.getElementById(`block-${sectorId}`);
+
+                // Determine target binary outcome
+                const finalState = (forceState !== null) ? forceState : !targetWedge.classList.contains("is-active");
+
+                if (finalState) {
+                    targetWedge.classList.add("is-active");
+                    if (targetCard) targetCard.classList.add("is-active");
+                    if (targetNode) targetNode.classList.add("is-active");
+                    if (targetOverlay) targetOverlay.classList.add("is-active");
+                } else {
+                    targetWedge.classList.remove("is-active");
+                    if (targetCard) targetCard.classList.remove("is-active");
+                    if (targetNode) targetNode.classList.remove("is-active");
+                    if (targetOverlay) targetOverlay.classList.remove("is-active");
+                }
+            }
+
+            // Click handling directly for vector path wedges
+            sectorBgs.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-sector");
+                    executeToggle(id);
+                });
+            });
+
+            // Click handling mirrored for overlapping HTML overlay structures
+            overlayBlocks.forEach(block => {
+                block.addEventListener("click", () => {
+                    const id = block.getAttribute("data-sector");
+                    executeToggle(id);
+                });
+            });
+
+            // Global Master Hub Center Action Rules (Preserved from original code)
+            centerHubBtn.addEventListener("click", () => {
+                const currentActiveCount = document.querySelectorAll(".wheel-sector-btn.is-active").length;
+
+                // Switch rule: If everything is active, reset. Otherwise, toggle all elements open simultaneously.
+                const shouldActivateAll = (currentActiveCount === sectorBgs.length) ? false : true;
+
+                sectorBgs.forEach(btn => {
+                    const id = btn.getAttribute("data-sector");
+                    executeToggle(id, shouldActivateAll);
+                });
+            });
+
+            // Optional: Initialize first view state cleanly
+            executeToggle("s3", true);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TyreOS Symmetrical Multi-Div Widget</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* MASTER WRAPPER: Constrains everything strictly to a 1:1 Aspect Ratio grid */
+        .tyreos-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+        }
+
+        /* SECTOR WRAPPER DIVS: Placed precisely at the center of each wedge to anchor both the SVG and DOM content */
+        .sector-super-wrapper {
+            position: absolute;
+            width: 340px;
+            /* Bounding safe zone for text and imagery layout */
+            height: 340px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(-50%, -50%);
+        }
+
+        /* SVG BACKGROUND CANVAS: Absolute full bleed within each coordinate cell */
+        .sector-svg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            pointer-events: none;
+        }
+
+        /* SECTOR CONTENT BLOCKS: Your original structures left untouched, naturally centered inside the super wrappers */
+        .sector-content-block {
+            position: relative;
+            z-index: 5;
+            width: 250px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .badge-icon-container {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .card-divider {
+            width: 44px;
+            height: 3px;
+            border-radius: 1.5px;
+            margin: 8px 0 12px 0;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        /* =========================================
+           CENTRAL HUB PREMIUM TYPOGRAPHY ENHANCEMENTS
+           ========================================= */
+        .central-core-hub * {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        .central-core-hub h1 {
+            font-weight: 900 !important;
+            letter-spacing: -1.5px !important;
+            line-height: 1 !important;
+            font-size: 42px !important;
+        }
+
+        .central-core-hub>span:first-of-type {
+            font-weight: 800 !important;
+            letter-spacing: 2.5px !important;
+            color: #FF6A00 !important;
+            text-transform: uppercase !important;
+        }
+
+        .central-core-hub>p {
+            font-weight: 600 !important;
+            color: #718096 !important;
+            line-height: 1.4 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tyreos-container">
+
+        <div class="layer-base layer-svg"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;">
+            <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"
+                style="width: 100%; height: 100%; display: block; overflow: visible;">
+                <defs>
+                    <linearGradient id="activeGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#FF7B0A" />
+                        <stop offset="100%" stop-color="#F45A00" />
+                    </linearGradient>
+                    <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="108%">
+                        <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.04" />
+                    </filter>
+                    <filter id="activeShadow" x="-6%" y="-6%" width="112%" height="112%">
+                        <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#F45A00" flood-opacity="0.22" />
+                    </filter>
+                    <filter id="badgeShadow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.1" />
+                    </filter>
+                    <filter id="imgShadow" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.06" />
+                    </filter>
+                    <filter id="imgShadowActive" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000" flood-opacity="0.15" />
+                    </filter>
+                    <radialGradient id="activeGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#FF6A00" stop-opacity="0.1" />
+                        <stop offset="100%" stop-color="#FF6A00" stop-opacity="0" />
+                    </radialGradient>
+
+                    <!-- Ambient Backing Glow: Warm organic radial bleed -->
+                    <radialGradient id="ambientGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#FF5500" stop-opacity="0" />
+                        <stop offset="30%" stop-color="#FF6A00" stop-opacity="0.15" />
+                        <stop offset="60%" stop-color="#FF7B0A" stop-opacity="0.06" />
+                        <stop offset="100%" stop-color="#FF7B0A" stop-opacity="0" />
+                    </radialGradient>
+
+                    <!-- Premium Core Depth Shadow: Wide soft-diffused blur -->
+                    <filter id="premiumCoreShadow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feDropShadow dx="0" dy="0" stdDeviation="28" flood-color="#000000" flood-opacity="0.10" />
+                    </filter>
+                </defs>
+
+                <g transform="translate(500,500)">
+                    <circle cx="0" cy="0" r="480" fill="none" stroke="#EDF2F7" stroke-width="1.5" />
+                    <circle cx="0" cy="0" r="200" fill="none" stroke="#EDF2F7" stroke-width="1" />
+                    <circle cx="0" cy="0" r="750" fill="url(#activeGlow)" />
+
+                    <path fill="#F4F6F8" filter="url(#cardShadow)" stroke="#FFFFFF" stroke-width="10"
+                        stroke-linejoin="round"
+                        d="M -411.4,-247.2 A 480,480 0 0,1 -8.2,-480 L -3.3,-190 A 190,190 0 0,0 -162.8,-97.9 Z" />
+                    <path fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.5" stroke-linejoin="round"
+                        d="M -411.4,-247.2 A 480,480 0 0,1 -8.2,-480 L -3.3,-190 A 190,190 0 0,0 -162.8,-97.9 Z" />
+
+                    <path fill="url(#activeGrad)" filter="url(#activeShadow)" stroke="#FFFFFF" stroke-width="10"
+                        stroke-linejoin="round"
+                        d="M 8.2,-480 A 480,480 0 0,1 411.4,-247.2 L 162.8,-97.9 A 190,190 0 0,0 3.3,-190 Z" />
+                    <path fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1" stroke-linejoin="round"
+                        d="M 8.2,-480 A 480,480 0 0,1 411.4,-247.2 L 162.8,-97.9 A 190,190 0 0,0 3.3,-190 Z" />
+
+                    <path fill="#F4F6F8" filter="url(#cardShadow)" stroke="#FFFFFF" stroke-width="10"
+                        stroke-linejoin="round"
+                        d="M 420,-232.8 A 480,480 0 0,1 420,232.8 L 166.2,92.1 A 190,190 0 0,0 166.2,-92.1 Z" />
+                    <path fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linejoin="round"
+                        d="M 420,-232.8 A 480,480 0 0,1 420,232.8 L 166.2,92.1 A 190,190 0 0,0 166.2,-92.1 Z" />
+
+                    <path fill="#F4F6F8" filter="url(#cardShadow)" stroke="#FFFFFF" stroke-width="10"
+                        stroke-linejoin="round"
+                        d="M 411.4,247.2 A 480,480 0 0,1 8.2,480 L 3.3,190 A 190,190 0 0,0 162.8,97.9 Z" />
+                    <path fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linejoin="round"
+                        d="M 411.4,247.2 A 480,480 0 0,1 8.2,480 L 3.3,190 A 190,190 0 0,0 162.8,97.9 Z" />
+
+                    <path fill="#F4F6F8" filter="url(#cardShadow)" stroke="#FFFFFF" stroke-width="10"
+                        stroke-linejoin="round"
+                        d="M -8.2,480 A 480,480 0 0,1 -411.4,247.2 L -162.8,97.9 A 190,190 0 0,0 -3.3,190 Z" />
+                    <path fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linejoin="round"
+                        d="M -8.2,480 A 480,480 0 0,1 -411.4,247.2 L -162.8,97.9 A 190,190 0 0,0 -3.3,190 Z" />
+
+                    <path fill="#F4F6F8" filter="url(#cardShadow)" stroke="#FFFFFF" stroke-width="10"
+                        stroke-linejoin="round"
+                        d="M -420,232.8 A 480,480 0 0,1 -420,-232.8 L -166.2,-92.1 A 190,190 0 0,0 -166.2,92.1 Z" />
+                    <path fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="0.8" stroke-linejoin="round"
+                        d="M -420,232.8 A 480,480 0 0,1 -420,-232.8 L -166.2,-92.1 A 190,190 0 0,0 -166.2,92.1 Z" />
+                </g>
+
+                <circle cx="500" cy="310" r="7" fill="#FFF" stroke="#FF6A00" stroke-width="3"
+                    filter="url(#badgeShadow)" />
+                <circle cx="664.5" cy="405" r="7" fill="#FFF" stroke="#FF6A00" stroke-width="3"
+                    filter="url(#badgeShadow)" />
+                <circle cx="664.5" cy="595" r="7" fill="#FFF" stroke="#FF6A00" stroke-width="3"
+                    filter="url(#badgeShadow)" />
+                <circle cx="500" cy="690" r="7" fill="#FFF" stroke="#FF6A00" stroke-width="3"
+                    filter="url(#badgeShadow)" />
+                <circle cx="335.5" cy="595" r="7" fill="#FFF" stroke="#FF6A00" stroke-width="3"
+                    filter="url(#badgeShadow)" />
+                <circle cx="335.5" cy="405" r="7" fill="#FFF" stroke="#FF6A00" stroke-width="3"
+                    filter="url(#badgeShadow)" />
+
+
+                <circle cx="500" cy="500" r="175" fill="#FFF" filter="url(#cardShadow)" />
+                <circle cx="500" cy="500" r="172" fill="#FFF" filter="url(#cardShadow)" />
+                <circle cx="500" cy="500" r="500" fill="url(#ambientGlow)" />
+                <circle cx="500" cy="500" r="165" fill="#FFFFFF" filter="url(#premiumCoreShadow)" />
+                <circle cx="500" cy="500" r="160" fill="#FFF" filter="url(#cardShadow)" />
+                <circle cx="500" cy="500" r="158" fill="#EDEDED" />
+            </svg>
+        </div>
+
+        <div class="content-overlay-layer"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; box-sizing: border-box;">
+
+            <div class="super-sector-layout-wrapper"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                <div class="sector-content-block s2"
+                    style="position: absolute; right: 8.5%; top: 19.5%; display: inline; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                    <div
+                        style="position: relative;right: 25.0%; justify-content: center; align-items: center; margin-bottom: 6px;">
+                        <img src="images/fleet.png" alt="Fleet / Govt." style="width: 200px; object-fit: contain;" />
+                        <div
+                            style="position: absolute; bottom: 20px; right: -60px; width: 50px; border-radius: 50%;background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                            <img src="images/fleet-icon.png"
+                                style="width: 60px; border-radius: 50%; object-fit: contain;" />
+                        </div>
+                    </div>
+                    <h3
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 18px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.3px;">
+                        Fleet / Govt.</h3>
+                    <div
+                        style="width: 32px; height: 3px; background: rgba(255,255,255,0.4); border-radius: 2px; margin: 6px 0;">
+                    </div>
+                    <p
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; line-height: 1.45; color: #FFFFFF;">
+                        <span style="font-weight: 500; color: #ffffff;">Who can use:</span> Fleet Operators, Govt.
+                        Departments<br>
+                        <span style="font-weight: 500; color: #ffffff;">Why:</span> Improve efficiency, ensure safety
+                        &amp; maintain compliance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="super-sector-layout-wrapper"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                <div class="sector-content-block s3"
+                    style="position: absolute; left: 84.5%; top: 48.0%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                    <div
+                        style="position: relative;left: 7%; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                        <img src="images/tyre.png" alt="Tyre Manufacturers"
+                            style="width: 240px; object-fit: contain;" />
+                        <div
+                            style="position: absolute; bottom: 20px; right: 200px; width: 72px; border-radius: 50%;background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                            <img src="images/tyre-icon.png"
+                                style="width: 72px; border-radius: 50% ; object-fit: contain;" />
+                        </div>
+                    </div>
+                    <h3
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px;">
+                        Tyre Manufacturers</h3>
+                    <div
+                        style="width: 32px; height: 3px; background: rgba(255,255,255,0.4); border-radius: 2px; margin: 6px 0;">
+                    </div>
+                    <p
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; line-height: 1.45; color: #4A5568;">
+                        <span style="font-weight: 500; color: #1A202C;">Who can use:</span> Tyre Manufacturers<br>
+                        <span style="font-weight: 500; color: #1A202C;">Why:</span> Monitor performance, improve quality
+                        &amp; drive customer satisfaction.
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="super-sector-layout-wrapper"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                <div class="sector-content-block s4"
+                    style="position: absolute; left: 62.5%; top: 80%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                    <div
+                        style="position: relative; left: 0.0%; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                        <img src="images/oem.png" alt="Vehicle OEM" style="width:200px;  object-fit: contain;" />
+                        <div
+                            style="position: absolute; bottom: 20px; right: -100px; width: 72px; border-radius: 50%;background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                            <img src="images/oem-icon.png"
+                                style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                        </div>
+                    </div>
+                    <h3
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px;">
+                        Vehicle OEM</h3>
+                    <div style="width: 32px; height: 3px; background: #E2E8F0; border-radius: 2px; margin: 6px 0;">
+                    </div>
+                    <p
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; line-height: 1.30; color: #4A5568;">
+                        <span style="font-weight: 500; color: #1A202C;">Who can use:</span> OEMs / Vehicle Makers<br>
+                        <span style="font-weight: 500; color: #1A202C;">Why:</span> Enhance vehicle reliability &amp;
+                        improve customer experience.
+                    </p>
+                </div>
+            </div>
+
+            <div class="super-sector-layout-wrapper"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                <div class="sector-content-block s5"
+                    style="position: absolute; left: 36.5%; top: 78.5%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                    <div
+                        style="position: relative; right: 0%; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                        <img src="images/service.png" alt="Service Partner"
+                            style="width: 160px; object-fit: contain;" />
+                        <div
+                            style="position: absolute; bottom: -5px; right: 195px; width: 72px; border-radius: 50%;background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                            <img src="images/service-icon.png"
+                                style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                        </div>
+                    </div>
+                    <h3
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px;">
+                        Service Partner</h3>
+                    <div style="width: 32px; height: 3px; background: #E2E8F0; border-radius: 2px; margin: 6px 0;">
+                    </div>
+                    <p
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; line-height: 1.45; color: #4A5568;">
+                        <span style="font-weight: 500; color: #1A202C;">Who can use:</span> Tyre Dealers, Service
+                        Centers,
+                        Workshops<br>
+                        <span style="font-weight: 500; color: #1A202C;">Why:</span> Deliver proactive service &amp;
+                        improve
+                        customer loyalty.
+                    </p>
+                </div>
+            </div>
+
+            <div class="super-sector-layout-wrapper"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                <div class="sector-content-block s6"
+                    style="position: absolute; left: 15.0%; top: 49.0%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                    <div
+                        style="position: relative; right: 10.0%; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                        <img src="images/insurance.png" alt="Insurer" style="width: 180px; object-fit: contain;" />
+                        <div
+                            style="position: absolute; bottom: -10px; right: -60px; width: 72px; border-radius: 50%;background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                            <img src="images/insurance-icon.png"
+                                style="width: 72px; border-radius: 50%; object-fit: contain;" />
+                        </div>
+                    </div>
+                    <h3
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 20px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px;">
+                        Insurer</h3>
+                    <div style="width: 32px; height: 3px; background: #E2E8F0; border-radius: 2px; margin: 6px 0;">
+                    </div>
+                    <p
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; line-height: 1.45; color: #4A5568;">
+                        <span style="font-weight: 500; color: #1A202C;">Who can use:</span> Insurance Companies<br>
+                        <span style="font-weight: 500; color: #1A202C;">Why:</span> Assess risk accurately &amp; reduce
+                        claim costs.
+                    </p>
+                </div>
+            </div>
+
+            <div class="super-sector-layout-wrapper"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                <div class="sector-content-block s1"
+                    style="position: absolute; left: 31.0%; top: 19.0%; transform: translate(-50%, -50%); width: 230px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                    <div
+                        style="position: relative;  left: 36.5%; display: flex; justify-content: center; align-items: center; margin-bottom: 6px;">
+                        <img src="images/bank.png" alt="Banker" style="width: 200px; object-fit: contain;" />
+                        <div
+                            style="position: absolute; bottom: 25px; left: -85px; width: 72px; border-radius: 50%;background: transparent; display: flex; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                            <img src="images/bank-icon.png"
+                                style="width: 72px; border-radius:50%; object-fit: contain;" />
+                        </div>
+                    </div>
+                    <h3
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 18px; font-weight: 600; color: #1A202C; letter-spacing: -0.3px;">
+                        Banker</h3>
+                    <div style="width: 32px; height: 3px; background: #E2E8F0; border-radius: 2px; margin: 6px 0;">
+                    </div>
+                    <p
+                        style="margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; line-height: 1.45; color: #4A5568;">
+                        <span style="font-weight: 500; color: #1a202c;">Who can use:</span> Banks, NBFCs, Financiers<br>
+                        <span style="font-weight: 500; color: #1A202C;">Why:</span> Mitigate risk &amp; make smarter
+                        lending
+                        decisions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="central-core-hub"
+                style="position: absolute; left: 50.0%; top: 48.0%; transform: translate(-50%, -50%); width: 260px; text-align: center; display: flex; flex-direction: column; align-items: center; pointer-events: auto;">
+                <img src="images/ai.png" alt="AI Engine"
+                    style="width: 150px; object-fit: contain; margin-bottom: 4px;" />
+                <span
+                    style="font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10.5px; font-weight: 800; color: #FF6A00; letter-spacing: 2px; line-height: 1.5;">AI
+                    DRIVEN</span>
+                <h1
+                    style="margin: 4px 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 60px; font-weight: 800; color: #1A202C; letter-spacing: -0.25px; line-height: 1.5;">
+                    Tyre<strong style="color: #FF6A00; font-weight: 700; font-size: 40px;"> OS</strong></h1>
+                <p
+                    style="margin: 2px; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; font-weight: 600; line-height: 1.5; color: #718096; max-width: 170px;">
+                    Intelligent Tyre Management for Smarter Mobility
+                </p>
+                <div style="display: flex; gap: 5px; margin-top: 10px;">
+                    <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                    <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                    <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                    <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                    <div style="width: 4px; height: 4px; background: #FF6A00; border-radius: 50%;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
